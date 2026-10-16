@@ -21,4 +21,4 @@ def test_prediction_returns_valid_structure():
 def test_basic_calculation():
     result = 2+3
     
-    assert result ==7
+    assert result ==5
