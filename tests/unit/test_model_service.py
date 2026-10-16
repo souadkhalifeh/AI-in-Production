@@ -17,8 +17,8 @@ def test_prediction_returns_valid_structure():
     
     assert result["class_id"] in [0,1,2]
     
-# @pytest.mark.unit
-# def test_basic_calculation():
-#     result = 2+3
+@pytest.mark.unit
+def test_basic_calculation():
+    result = 2+3
     
-#     assert result ==5
+    assert result ==7
