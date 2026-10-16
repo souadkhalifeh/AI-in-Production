@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:17
+
+    environment:
+      POSTGRES_DB: iris_ai
+      POSTGRES_USER: iris_app
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iris_app -d iris_ai"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      DATABASE_URL: postgresql+psycopg://iris_app:${POSTGRES_PASSWORD}@db:5432/iris_ai
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
