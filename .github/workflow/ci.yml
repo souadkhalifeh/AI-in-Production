@@ -2,7 +2,7 @@ name: IRIS AI CI CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 
 jobs:
@@ -42,13 +42,3 @@ jobs:
 
       - name: Run tests
         run: pytest -v
-    docker-build:
-      runs-on: ubuntu-latest
-      needs: test
-
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v7
-
-        - name: Build Docker image
-          run: docker build -t iris-api:ci .
