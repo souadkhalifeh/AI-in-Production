@@ -3,7 +3,7 @@ from app.utils.logger import get_logger
 from app.utils.exception import ModelLoadError, PredictionError, InvalidInputError, TypeError
 
 logger = get_logger()
-MODEL__PATH = "/models/iris_model.pkl"
+MODEL__PATH = "../../models/iris_model.pkl"
 
 def load_model():
     """
