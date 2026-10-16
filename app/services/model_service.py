@@ -1,9 +1,12 @@
-import joblib 
+from pathlib import Path
+
+import joblib
 from app.utils.logger import get_logger
 from app.utils.exception import ModelLoadError, PredictionError, InvalidInputError, TypeError
 
 logger = get_logger()
-MODEL__PATH = "../../models/iris_model.pkl"
+# Resolve relative to this file (app/services/ -> project root) so it works from any working directory
+MODEL__PATH = Path(__file__).resolve().parents[2] / "models" / "iris_model.pkl"
 
 def load_model():
     """
@@ -17,8 +20,8 @@ def load_model():
         model = joblib.load(MODEL__PATH)
         logger.info(f"Model loaded successfully from {MODEL__PATH}.")
         return model
-    except FileNotFoundError:
-        raise ModelLoadError("Failed to load the model {e}.")
+    except FileNotFoundError as e:
+        raise ModelLoadError(f"Failed to load the model: {e}.")
 
 class_names = ['setosa', 'versicolor', 'virginica']
 def predict(features): 
